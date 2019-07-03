@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Book } from './book';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookStoreService {
 
-  constructor() { }
+  private api = 'https://api.angular.schule';
+
+  constructor(private http: HttpClient) { }
+
+  getAll() {
+    return this.http.get<Book[]>(`${this.api}/books`);
+  }
 
   getAllStatic() {
     return [

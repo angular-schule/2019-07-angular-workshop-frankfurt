@@ -1,18 +1,20 @@
-<br-book
+<ng-container *ngIf="books">
+
+  <br-book
   *ngFor="let b of books; trackBy: trackBook"
   [book]="b"
   (rateUp)="rateUp($event)"
   (rateDown)="rateDown(b)"></br-book>
 
-<ul>
-  <li *ngFor="let b of books; index as i">
-    {{ i + 1 }}.) {{ b.title }}
-  </li>
-</ul>
+  <ul>
+    <li *ngFor="let b of books; index as i">
+      {{ i + 1 }}.) {{ b.title }}
+    </li>
+  </ul>
 
+  <strong>Anzahl Bücher:</strong> {{ books.length }}
 
-<strong>Anzahl Bücher:</strong> {{ books.length }}
-
+</ng-container>
 
 <br-fancy-button label="Hallo Welt"></br-fancy-button>
 <br-fancy-button></br-fancy-button>
