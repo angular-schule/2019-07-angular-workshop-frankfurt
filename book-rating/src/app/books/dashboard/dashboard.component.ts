@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
 
   books: Book[];
 
-  constructor() {}
+  constructor(private rs: BookRatingService) {}
 
   ngOnInit() {
     this.books = [
@@ -33,5 +33,22 @@ export class DashboardComponent implements OnInit {
   trackBook(index: number, book: Book) {
     return book.isbn;
   }
+
+  rateUp(book: Book) {
+    const ratedBook = this.rs.rateUp(book);
+    this.updateSortList(ratedBook);
+  }
+
+  rateDown(book: Book) {
+    const ratedBook = this.rs.rateDown(book);
+    this.updateSortList(ratedBook);
+  }
+
+  updateSortList(ratedBook: Book) {
+    this.books = this.books
+      .map(b => b.isbn === ratedBook.isbn ? ratedBook : b)
+      .sort((a, b) => b.rating - a.rating);
+  }
+
 
 }
