@@ -12,7 +12,28 @@ export class BookStoreService {
   constructor(private http: HttpClient) { }
 
   getAll() {
+    // TODO: Error Handling
+    // TODO: Echtes Book erzeugen
     return this.http.get<Book[]>(`${this.api}/books`);
+  }
+
+  getSingle(isbn: string) {
+    return this.http.get<Book>(`${this.api}/books/${isbn}`);
+  }
+
+  create(book: Book) {
+    return this.http.post(
+      `${this.api}/books`,
+      book,
+      { responseType: 'text' }
+    );
+  }
+
+  delete(isbn: string) {
+    return this.http.delete(
+      `${this.api}/book/${isbn}`,
+      { responseType: 'text' }
+    );
   }
 
   getAllStatic() {
