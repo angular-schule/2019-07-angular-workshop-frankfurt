@@ -40,5 +40,12 @@ export class DashboardComponent implements OnInit {
       .sort((a, b) => b.rating - a.rating);
   }
 
+  deleteBook(book: Book) {
+    this.bs.delete(book.isbn).subscribe(() => {
+      this.bs.getAll()
+        .subscribe(books => this.books = books);
+    });
+  }
+
 
 }

@@ -4,7 +4,8 @@
   *ngFor="let b of books; trackBy: trackBook"
   [book]="b"
   (rateUp)="rateUp($event)"
-  (rateDown)="rateDown(b)"></br-book>
+  (rateDown)="rateDown(b)"
+  (delete)="deleteBook($event)"></br-book>
 
   <ul>
     <li *ngFor="let b of books; index as i">
