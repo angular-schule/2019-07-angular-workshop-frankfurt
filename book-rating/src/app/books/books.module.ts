@@ -9,6 +9,7 @@ import { ButtonSharedModule } from '../button-shared/button-shared.module';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { CreateBookContainerComponent } from './create-book-container/create-book-container.component';
 import { BookFormComponent } from './book-form/book-form.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { BookFormComponent } from './book-form/book-form.component';
     DashboardComponent,
     BookDetailsComponent,
     CreateBookContainerComponent,
-    BookFormComponent
+    BookFormComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
