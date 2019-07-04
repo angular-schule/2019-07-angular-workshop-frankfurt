@@ -37,4 +37,22 @@ export class BookFormComponent implements OnInit {
     return control.hasError(errorCode) && control.dirty;
   }
 
+  submitForm() {
+    // Buch erzeugen
+    const newBook: Book = {
+      ...this.bookForm.value,
+      rating: 1
+    };
+
+    // Event werfen
+    this.submitBook.emit(newBook);
+
+    // Formular zurücksetzen
+    this.bookForm.reset({
+      isbn: '',
+      title: '',
+      description: ''
+    });
+  }
+
 }
