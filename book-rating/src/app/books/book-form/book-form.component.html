@@ -1,23 +1,24 @@
 <form [formGroup]="bookForm" (ngSubmit)="submitForm()">
   <div class="form-group">
-    <label>ISBN</label>
+    <label i18n="@@isbnlabel">ISBN</label>
     <input type="text" formControlName="isbn" class="form-control">
     <div class="feedback-red" *ngIf="isInvalid('isbn')">ISBN ist ungültig.</div>
     <div class="feedback-red" *ngIf="hasError('isbn', 'minlength')">ISBN ist zu kurz...</div>
   </div>
 
   <div class="form-group">
-    <label>Titel</label>
+    <label i18n="@@titlelabel">Titel</label>
     <input type="text" formControlName="title" class="form-control">
   </div>
 
   <div class="form-group">
-    <label>Beschreibung</label>
+    <label i18n="@@desclabel">Beschreibung</label>
     <textarea formControlName="description" class="form-control"></textarea>
   </div>
 
   <button
     type="submit"
+    i18n="@@submitbutton"
     class="btn btn-danger"
     [disabled]="bookForm.invalid">Abschicken</button>
 </form>
