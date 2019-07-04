@@ -1,4 +1,13 @@
-{{ isbn }}
+<ng-container *ngIf="book">
+  <h2>{{ book.title }}</h2>
+
+  <strong>ISBN:</strong> {{ book.isbn }}
+
+  <p>
+    {{ book.description }}
+  </p>
+
+</ng-container>
 
 <hr>
 
