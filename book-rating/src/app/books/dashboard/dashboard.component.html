@@ -1,4 +1,4 @@
-<ng-container *ngIf="books">
+<ng-container *ngIf="books; else loading">
 
   <br-book
   *ngFor="let b of books; trackBy: trackBook"
@@ -15,6 +15,10 @@
   <strong>Anzahl Bücher:</strong> {{ books.length }}
 
 </ng-container>
+
+<ng-template #loading>
+  <strong>Bücher werden geladen...</strong>
+</ng-template>
 
 <br-fancy-button label="Hallo Welt"></br-fancy-button>
 <br-fancy-button></br-fancy-button>
