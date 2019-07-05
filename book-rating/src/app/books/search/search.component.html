@@ -1,3 +1,10 @@
 <form [formGroup]="searchForm">
   <input formControlName="term" class="form-control" type="search" placeholder="Search">
 </form>
+
+
+<ul>
+  <li *ngFor="let b of results$ | async">
+    <a [routerLink]="['/books', b.isbn]">{{ b.title }}</a>
+  </li>
+</ul>
