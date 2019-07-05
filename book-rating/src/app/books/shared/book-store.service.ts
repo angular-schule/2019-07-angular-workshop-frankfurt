@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 import { Book } from './book';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +14,25 @@ export class BookStoreService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    // TODO: Error Handling
-    // TODO: Echtes Book erzeugen
-    return this.http.get<Book[]>(`${this.api}/books`);
+    return this.http.get<Book[]>(`${this.api}/books`).pipe(
+      map(rawBooks => rawBooks.map(
+        rawBook => this.bookFromRaw(rawBook)
+      )),
+      catchError(err => of(this.getAllStatic()))
+    );
   }
 
   getSingle(isbn: string) {
-    return this.http.get<Book>(`${this.api}/books/${isbn}`);
+    return this.http.get<Book>(`${this.api}/books/${isbn}`).pipe(
+      map(rawBook => this.bookFromRaw(rawBook))
+    );
+  }
+
+  search(term: string) {
+    return this.http.get<any[]>(`${this.api}/books/search/${term}`).pipe(
+      map(rawBooks => (rawBooks ? rawBooks : [])),
+      map(rawBooks => rawBooks.map(rawBook => this.bookFromRaw(rawBook)))
+    );
   }
 
   create(book: Book) {
@@ -34,6 +48,15 @@ export class BookStoreService {
       `${this.api}/book/${isbn}`,
       { responseType: 'text' }
     );
+  }
+
+  private bookFromRaw(rawBook: any): Book {
+    return {
+      isbn: rawBook.isbn,
+      title: rawBook.title,
+      description: rawBook.description,
+      rating: rawBook.rating
+    };
   }
 
   getAllStatic() {

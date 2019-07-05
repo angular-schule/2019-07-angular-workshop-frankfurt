@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BookStoreService } from '../shared/book-store.service';
 import { Book } from '../shared/book';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'br-book-details',
@@ -11,7 +12,7 @@ import { Book } from '../shared/book';
 export class BookDetailsComponent implements OnInit {
 
   isbn: string;
-  book: Book;
+  book$: Observable<Book>;
 
   constructor(private route: ActivatedRoute, private bs: BookStoreService) { }
 
@@ -22,9 +23,7 @@ export class BookDetailsComponent implements OnInit {
     // TODO: doppeltes subscribe vermeiden (!!!)
     this.route.paramMap.subscribe(params => {
       const isbn = params.get('isbn');
-      this.bs.getSingle(isbn).subscribe(book => {
-        this.book = book;
-      });
+      this.book$ = this.bs.getSingle(isbn);
     });
   }
 

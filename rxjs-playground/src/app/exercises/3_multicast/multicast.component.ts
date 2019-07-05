@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Subject, BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 
@@ -13,13 +13,22 @@ export class MulticastComponent implements OnInit {
   listeners = [];
   logStream$ = new Subject();
 
-  measureValues$: Observable<number>; // später: Subject<number>
+  measureValues$: Subject<number>;
 
   constructor(private mvs: MeasureValuesService) { }
 
   ngOnInit() {
     /*******************************/
 
+    /*this.measureValues$ = this.mvs.getValues().pipe(
+      share() // oder shareReplay()
+    );*/
+
+    // Subject
+    // BehaviorSubject
+    // ReplaySubject
+    this.measureValues$ = new ReplaySubject<number>(5);
+    this.mvs.getValues().subscribe(this.measureValues$);
 
     /*******************************/
   }
