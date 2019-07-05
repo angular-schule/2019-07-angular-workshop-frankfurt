@@ -10,6 +10,10 @@ import { BookDetailsComponent } from './book-details/book-details.component';
 import { CreateBookContainerComponent } from './create-book-container/create-book-container.component';
 import { BookFormComponent } from './book-form/book-form.component';
 import { SearchComponent } from './search/search.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromBook from './reducers/book.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { BookEffects } from './effects/book.effects';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,9 @@ import { SearchComponent } from './search/search.component';
     CommonModule,
     BooksRoutingModule,
     ButtonSharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature('book', fromBook.reducer),
+    EffectsModule.forFeature([BookEffects])
   ]
 })
 export class BooksModule { }

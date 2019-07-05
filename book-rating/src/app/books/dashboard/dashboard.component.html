@@ -1,4 +1,4 @@
-<ng-container *ngIf="books; else loading">
+<ng-container *ngIf="books$ | async as books">
 
   <br-book
   *ngFor="let b of books; trackBy: trackBook"
@@ -17,9 +17,9 @@
 
 </ng-container>
 
-<ng-template #loading>
-  <strong>Bücher werden geladen...</strong>
-</ng-template>
+
+<strong *ngIf="loading$ | async">Bücher werden geladen...</strong>
+
 
 <br-fancy-button label="Hallo Welt"></br-fancy-button>
 <br-fancy-button></br-fancy-button>
